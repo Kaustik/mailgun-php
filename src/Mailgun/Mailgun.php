@@ -100,7 +100,9 @@ class Mailgun
     ) {
         $httpClient = $configurator->createConfiguredClient();
 
-        return new self($configurator->getApiKey(), $httpClient, 'api.mailgun.net', $hydrator, $requestBuilder);
+        $apiEndpoint = preg_replace("/^http(s)?:\/\//", "", $configurator->getEndpoint());
+
+        return new self($configurator->getApiKey(), $httpClient, $apiEndpoint, $hydrator, $requestBuilder);
     }
 
     /**
